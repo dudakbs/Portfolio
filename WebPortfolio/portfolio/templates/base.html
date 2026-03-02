@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUARDA KLAPPER | Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <nav class="main-nav">
+        <a href="/" class="logo">EDUARDA KLAPPER<span>.</span></a>
+        
+        <div class="nav-links">
+            <a href="#home" class="nav-item">Home</a>
+            <a href="#projetos" class="nav-item">Projetos</a>
+            <a href="#sobre" class="nav-item">Sobre</a>
+        </div>
+        <a href="#contato" class="btn-contact">Contato</a>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // 1. Animação da Navbar
+        gsap.from(".main-nav", { y: -20, opacity: 0, duration: 1.2, ease: "expo.out" });
+        
+        // 2. Efeito Hover nos Cards de Projetos
+        const cards = document.querySelectorAll('.project-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, { duration: 0.3, borderColor: "rgba(56, 189, 248, 0.8)" });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { duration: 0.3, borderColor: "rgba(255, 255, 255, 0.05)" });
+            });
+        }); 
+
+       // 3. Rolagem Horizontal Inteligente (Carrossel)
+        const carousel = document.querySelector('.projects-carousel');
+        
+        if (carousel) {
+            carousel.addEventListener('wheel', (evt) => {
+                // Verifica a direção do scroll do mouse
+                const isScrollingDown = evt.deltaY > 0;
+                const isScrollingUp = evt.deltaY < 0;
+                
+                // Calcula se o carrossel bateu nos limites (início ou fim)
+                const isAtRightEdge = Math.ceil(carousel.scrollLeft + carousel.clientWidth) >= carousel.scrollWidth;
+                const isAtLeftEdge = carousel.scrollLeft === 0;
+
+                // LÓGICA DE ESCAPE: 
+                // Se está rolando pra baixo e já chegou no fim, OU
+                // Se está rolando pra cima e já chegou no começo...
+                if ((isScrollingDown && isAtRightEdge) || (isScrollingUp && isAtLeftEdge)) {
+                    return; // Retorna vazio. Deixa a página rolar normalmente para cima/baixo!
+                }
+
+                // Caso contrário, continua rolando os cards de lado e bloqueia a página
+                evt.preventDefault();
+                carousel.scrollLeft += evt.deltaY;
+            });
+        }
+        // 4. EFEITO FUEL: Text Reveal do Título Gigante
+        // Faz as letras subirem suavemente como uma cortina
+        gsap.to(".line-mask span", {
+            y: 0, 
+            duration: 1.5,
+            stagger: 0.2, // Efeito cascata: uma linha sobe depois da outra
+            ease: "power4.out", 
+            delay: 0.5 
+        });
+
+        // 5. Fade In da descrição logo abaixo do título
+        gsap.from(".hero-description", {
+            opacity: 0, 
+            y: 20, 
+            duration: 1, 
+            delay: 1.2
+        });
+    </script>
+</body>
+</html>

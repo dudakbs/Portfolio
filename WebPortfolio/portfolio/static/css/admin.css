@@ -1,0 +1,19 @@
+/* Conserta o widget de seleção dupla (Tecnologias) que estava esmagado */
+.selector {
+    width: 100% !important;
+    min-width: 600px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+/* Garante que a caixa da esquerda e da direita tenham tamanhos iguais */
+.selector .selector-available, 
+.selector .selector-chosen {
+    width: 48% !important;
+}
+
+/* Força as listas de opções a ocuparem o espaço todo da caixa */
+.selector select {
+    width: 100% !important;
+    min-height: 150px !important;
+}

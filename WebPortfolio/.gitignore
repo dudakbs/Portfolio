@@ -1,0 +1,27 @@
+# Segurança (O mais importante!)
+.env
+
+# Banco de dados local (SQLite)
+*.sqlite3
+db.sqlite3
+
+# Cache do Python e Bytecodes
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambientes Virtuais (Conda/Venv)
+.venv/
+env/
+venv/
+ENV/
+
+# Arquivos do VS Code e Sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Arquivos de Mídia e Estáticos Coletados
+media/
+staticfiles/
