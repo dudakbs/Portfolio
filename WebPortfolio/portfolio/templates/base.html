@@ -44,33 +44,7 @@
                 gsap.to(card, { duration: 0.3, borderColor: "rgba(255, 255, 255, 0.05)" });
             });
         }); 
-
-       // 3. Rolagem Horizontal Inteligente (Carrossel)
-        const carousel = document.querySelector('.projects-carousel');
         
-        if (carousel) {
-            carousel.addEventListener('wheel', (evt) => {
-                // Verifica a direção do scroll do mouse
-                const isScrollingDown = evt.deltaY > 0;
-                const isScrollingUp = evt.deltaY < 0;
-                
-                // Calcula se o carrossel bateu nos limites (início ou fim)
-                const isAtRightEdge = Math.ceil(carousel.scrollLeft + carousel.clientWidth) >= carousel.scrollWidth;
-                const isAtLeftEdge = carousel.scrollLeft === 0;
-
-                // LÓGICA DE ESCAPE: 
-                // Se está rolando pra baixo e já chegou no fim, OU
-                // Se está rolando pra cima e já chegou no começo...
-                if ((isScrollingDown && isAtRightEdge) || (isScrollingUp && isAtLeftEdge)) {
-                    return; // Retorna vazio. Deixa a página rolar normalmente para cima/baixo!
-                }
-
-                // Caso contrário, continua rolando os cards de lado e bloqueia a página
-                evt.preventDefault();
-                carousel.scrollLeft += evt.deltaY;
-            });
-        }
-        // 4. EFEITO FUEL: Text Reveal do Título Gigante
         // Faz as letras subirem suavemente como uma cortina
         gsap.to(".line-mask span", {
             y: 0, 
@@ -78,14 +52,6 @@
             stagger: 0.2, // Efeito cascata: uma linha sobe depois da outra
             ease: "power4.out", 
             delay: 0.5 
-        });
-
-        // 5. Fade In da descrição logo abaixo do título
-        gsap.from(".hero-description", {
-            opacity: 0, 
-            y: 20, 
-            duration: 1, 
-            delay: 1.2
         });
     </script>
 </body>
