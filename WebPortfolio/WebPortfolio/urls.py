@@ -11,6 +11,14 @@ urlpatterns = [
     path('', include('portfolio.urls')),
 ]
 
-# Configuração para o Django carregar as imagens de upload no ambiente local
-if settings.DEBUG:
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
+
+urlpatterns = [
+    # ... suas rotas existentes ...
+]
+
+# Adicione isso ao final do arquivo:
+if settings.DEBUG or not settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
